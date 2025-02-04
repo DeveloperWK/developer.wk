@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "Sprintura";
+  src: url("./fonts/Sprintura\ Demo.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "toxigenesis";
+  src: url("./fonts/toxigenesis\ bd.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+.heroHeadingAnimated{
+  font-family: "Sprintura";
+}
+.sloganFont{
+  font-family: "toxigenesis";
+}
