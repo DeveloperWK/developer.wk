@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import homeFonts from "../styles/homeFonts.module.css";
+import { toxigenesis } from "./HeroSection";
 const textVariants = {
   hidden: { opacity: 0 },
   visible: (i: number) => ({
@@ -8,10 +8,11 @@ const textVariants = {
     transition: { delay: i * 0.1 },
   }),
 };
+
 const DeveloperTitleHeroSection = ({ text }: { text: string }) => {
   return (
     <section>
-      <p className={`text-xl md:text-4xl ${homeFonts.sloganFont}`}>
+      <p className={`text-xl md:text-4xl ${toxigenesis.className}`}>
         {text.split("").map((char, i) => (
           <motion.span
             key={i}

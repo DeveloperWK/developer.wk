@@ -1,5 +1,6 @@
+import { Raleway } from "next/font/google";
+import localFont from "next/font/local";
 import { MdOutlineWorkspacePremium } from "react-icons/md";
-import homeFonts from "../styles/homeFonts.module.css";
 import DeveloperTitleHeroSection from "./DeveloperTitleHeroSection";
 import MagicButton from "./MagicButton";
 import SocialLink from "./SocialLink";
@@ -7,7 +8,21 @@ import Software_dev_Animation from "./Software_dev_Animation";
 import { Spotlight } from "./Spotlight";
 import { TextGenerateEffect } from "./Text-generate-effect";
 import TypeWriting from "./TypeWriting";
+// Initialize the font
+const sprintura = localFont({
+  src: "../../../public/fonts/Sprintura-Demo.otf",
+  display: "swap",
+});
 
+export const toxigenesis = localFont({
+  src: "../../../public/fonts/toxigenesis-bd.otf",
+  display: "swap",
+});
+const raleway = Raleway({
+  weight: "600",
+  subsets: ["latin"],
+  display: "swap",
+});
 const HeroSection = () => {
   return (
     <section className="pb-20 pt-12 h-full">
@@ -28,7 +43,7 @@ const HeroSection = () => {
           <section className="flex items-center justify-between gap-5 md:flex-row flex-col md:justify-center md:items-center">
             <section className="h-full text-center md:text-left">
               <p
-                className={`${homeFonts.tagline} capitalize text-[1rem] italic mt-10`}
+                className={`${raleway.className} capitalize text-[1rem] italic mt-10`}
               >
                 Building scalable web applications with a focus on user
                 experience...
@@ -36,17 +51,17 @@ const HeroSection = () => {
               <TextGenerateEffect
                 words="MD.WASIFUL KABIR"
                 //pt-16
-                className={` text-center  text-[35px] md:text-5xl lg:text-6xl ${homeFonts.heroHeadingAnimated}  md:text-left   `}
+                className={` text-center  text-[35px] md:text-5xl lg:text-6xl ${sprintura.className}  md:text-left   `}
               />
               <h2
-                className={`text-center uppercase tracking-widest text-xs text-blue-100 md:text-xl md:text-left ${homeFonts.sloganFont} `}
+                className={`text-center uppercase tracking-widest text-xs text-blue-100 md:text-xl md:text-left ${toxigenesis.className} `}
               >
                 One Step Ahead of Everyone...
               </h2>
               <section className="mt-5 ">
                 <TypeWriting />
               </section>
-        
+
               <MagicButton
                 title="View My Work"
                 className="mt-5 "
