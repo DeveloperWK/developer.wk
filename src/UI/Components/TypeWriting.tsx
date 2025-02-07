@@ -1,6 +1,6 @@
 "use client";
 import { useTypewriter } from "react-simple-typewriter";
-import headingFonts from "../styles/headingFonts.module.css";
+import homeFonts from "../styles/homeFonts.module.css";
 const TypeWriting = () => {
   const [words] = useTypewriter({
     words: [
@@ -16,7 +16,7 @@ const TypeWriting = () => {
   return (
     <p className="text-2xl text-white">
       I &apos;m{" "}
-      <span className={`text-purple ${headingFonts.sloganFont} uppercase`}>{words}</span>
+      <span className={`text-purple ${homeFonts.sloganFont} uppercase`}>{words}</span>
       ...
     </p>
   );

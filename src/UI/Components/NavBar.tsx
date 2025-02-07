@@ -1,101 +1,126 @@
 "use client";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import navItems from "@/Data/NavItems";
+import { Github, Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import {
-  AiOutlineClose,
-  AiOutlineFacebook,
-  AiOutlineGithub,
-  AiOutlineLinkedin,
-  AiOutlineMenu,
-  AiOutlineYoutube,
-} from "react-icons/ai";
-import logo from "../../../public/logo.jpg";
-import navItems from "../../Data/NavItems";
-import styles from "../styles/navBar.module.css";
-// Menu Focus jiges korte hobe
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
-const NavBar = () => {
-  const [isMenuOpe, setIsMenuOpen] = useState(false);
-  const handleNav = () => {
-    setIsMenuOpen(!isMenuOpe);
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Close mobile menu on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Prevent scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
-  return (
-    <nav className="w-full h-24 shadow-xl sticky top-0 left-0 z-50 bg-black-100">
-      <section className="flex justify-between items-center h-full w-full px-4 2xl:px-16">
-        <section>
-          <Link href="/">
-            <Image src={logo} alt="logo" width={80} height={80} />
-          </Link>
-        </section>
-        <section className="hidden md:flex items-center gap-3">
-          <ul className="hidden sm:flex">
-            {navItems.map((item) => (
-              <Link key={item?.id} href={item?.href}>
-                <motion.li
-                  className={`ml-5 uppercase hover:border-b text-md ${styles.navFont} `}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 1.1 }}
-                >
-                  {item?.title}
-                </motion.li>
-              </Link>
-            ))}
-          </ul>
-        </section>
-        <section
-          onClick={handleNav}
-          className="cursor-pointer  pl-24 sm:hidden"
-        >
-          <AiOutlineMenu size={25} />
-        </section>
-      </section>
-      <section
-        className={
-          isMenuOpe
-            ? "fixed left-0 top-0 w-[65%] h-screen bg-black-100 p-10 ease-in duration-500 sm:hidden"
-            : "fixed left-[-100%] top-0 p-10 ease-in duration-500"
-        }
-      >
-        <AiOutlineClose
-          size={30}
-          className="absolute right-4 top-4 cursor-pointer"
-          onClick={handleNav}
-        />
-        <section className="flex flex-col py-4">
-          <ul>
-            {navItems.map((item) => (
-              <Link key={item?.id} href={item?.href}>
-                <li
-                  className="py-4 cursor-pointer"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item?.title}
-                </li>
-              </Link>
-            ))}
-          </ul>
-        </section>
-        <section className="flex flex-col gap-3 ">
-          <section className="flex gap-4">
-            <AiOutlineFacebook size={30} className="cursor-pointer" />
-            <AiOutlineLinkedin size={30} className="cursor-pointer" />
-            <AiOutlineGithub size={30} className="cursor-pointer" />
-            <AiOutlineYoutube size={30} className="cursor-pointer" />
-          </section>
 
-          <Image
-            src={logo}
-            alt="logo"
-            width={80}
-            height={80}
-            className="ml-3"
-          />
-        </section>
-      </section>
+  const getLinkClasses = (path: string) => {
+    const baseClasses = "transition-all duration-300";
+    const desktopClasses =
+      pathname === path
+        ? "text-white border-b-2 border-white transform scale-105"
+        : "text-white hover:text-gray-300 hover:scale-105";
+    return `${baseClasses} ${desktopClasses}`;
+  };
+
+  const getMobileLinkClasses = (path: string) => {
+    return `block w-full text-center py-4 text-lg font-medium transition-all duration-300 ${
+      pathname === path
+        ? "text-white bg-[#0a0e2e]"
+        : "text-gray-300 hover:text-white hover:bg-[#0a0e2e]"
+    }`;
+  };
+
+  return (
+    <nav className="bg-[#000319] shadow-lg fixed w-full top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <Link href="/" className="flex items-center">
+            <Github className="h-8 w-8 text-white transition-transform duration-300 hover:scale-110" />
+            <span className="ml-2 text-xl font-bold text-white">Company</span>
+          </Link>
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((link) => (
+              <Link
+                key={link?.id}
+                href={link?.href}
+                className={getLinkClasses(link?.href)}
+              >
+                {link?.title}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-300 focus:outline-none transition-transform duration-300 hover:scale-110"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300 md:hidden ${
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
+
+      {/* Mobile Menu */}
+      <div
+        className={`fixed top-16 left-0 right-0 bottom-0 bg-[#000319] transform transition-transform duration-300 ease-in-out md:hidden ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex flex-col h-full py-4">
+          {navItems.map((link) => (
+            <Link
+              key={link?.id}
+              href={link?.href}
+              onClick={() => setIsOpen(false)}
+              className={getMobileLinkClasses(link?.href)}
+            >
+              {link?.title}
+            </Link>
+          ))}
+        </div>
+      </div>
     </nav>
   );
 };
 
-export default NavBar;
+export default Navbar;

@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+body {
+  scroll-behavior: smooth;
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -69,5 +71,83 @@
 @layer base {
   .black-gradient {
     background: linear-gradient(90deg, #161a31 0%, #06091f 100%);
+  }
+}
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes progressAnimation {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+@keyframes neonPulse {
+  0% {
+    box-shadow: 0 0 5px #4f46e5, 0 0 10px #4f46e5, 0 0 15px #4f46e5;
+  }
+  50% {
+    box-shadow: 0 0 10px #4f46e5, 0 0 20px #4f46e5, 0 0 30px #4f46e5;
+  }
+  100% {
+    box-shadow: 0 0 5px #4f46e5, 0 0 10px #4f46e5, 0 0 15px #4f46e5;
+  }
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.neon-gradient {
+  background: linear-gradient(-45deg, #4f46e5, #7c3aed, #2563eb, #4f46e5);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+}
+
+.btn-animate {
+  animation: neonPulse 2s infinite;
+  transition: all 0.3s ease;
+}
+
+.btn-animate:hover {
+  transform: translateY(-2px);
+  animation: none;
+  box-shadow: 0 0 15px #4f46e5, 0 0 30px #4f46e5, 0 0 45px #4f46e5;
+}
+
+@media (max-width: 640px) {
+  .btn-animate {
+    box-shadow: 0 0 3px #4f46e5, 0 0 6px #4f46e5, 0 0 9px #4f46e5;
+  }
+  
+  .btn-animate:hover {
+    box-shadow: 0 0 8px #4f46e5, 0 0 16px #4f46e5, 0 0 24px #4f46e5;
   }
 }

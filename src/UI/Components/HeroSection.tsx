@@ -1,5 +1,7 @@
-import headingFonts from "../styles/headingFonts.module.css";
-import DownloadCV from "./DownloadCV";
+import { MdOutlineWorkspacePremium } from "react-icons/md";
+import homeFonts from "../styles/homeFonts.module.css";
+import DeveloperTitleHeroSection from "./DeveloperTitleHeroSection";
+import MagicButton from "./MagicButton";
 import SocialLink from "./SocialLink";
 import Software_dev_Animation from "./Software_dev_Animation";
 import { Spotlight } from "./Spotlight";
@@ -7,9 +9,8 @@ import { TextGenerateEffect } from "./Text-generate-effect";
 import TypeWriting from "./TypeWriting";
 
 const HeroSection = () => {
-
   return (
-    <section className="pb-20 pt-12">
+    <section className="pb-20 pt-12 h-full">
       <div>
         <Spotlight
           className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen"
@@ -26,21 +27,33 @@ const HeroSection = () => {
           <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
           <section className="flex items-center justify-between gap-5 md:flex-row flex-col md:justify-center md:items-center">
             <section className="h-full text-center md:text-left">
+              <p
+                className={`${homeFonts.tagline} capitalize text-[1rem] italic mt-10`}
+              >
+                Building scalable web applications with a focus on user
+                experience...
+              </p>
               <TextGenerateEffect
                 words="MD.WASIFUL KABIR"
-                className={`pt-16 text-center  text-[35px] md:text-5xl lg:text-6xl ${headingFonts.heroHeadingAnimated}  md:text-left   `}
+                //pt-16
+                className={` text-center  text-[35px] md:text-5xl lg:text-6xl ${homeFonts.heroHeadingAnimated}  md:text-left   `}
               />
               <h2
-                className={`text-center uppercase tracking-widest text-xs   text-blue-100 md:text-xl md:text-left ${headingFonts.sloganFont} `}
+                className={`text-center uppercase tracking-widest text-xs text-blue-100 md:text-xl md:text-left ${homeFonts.sloganFont} `}
               >
                 One Step Ahead of Everyone...
               </h2>
               <section className="mt-5 ">
-              <TypeWriting/>
+                <TypeWriting />
               </section>
-              <DownloadCV />
+        
+              <MagicButton
+                title="View My Work"
+                className="mt-5 "
+                icon={<MdOutlineWorkspacePremium className="ml-1" />}
+              />
               <section>
-<SocialLink/>
+                <SocialLink />
               </section>
             </section>
             <section className="h-full">
@@ -48,6 +61,9 @@ const HeroSection = () => {
             </section>
           </section>
         </div>
+      </section>
+      <section className="w-100 text-center md:p-5">
+        <DeveloperTitleHeroSection text="  One Step Ahead: Redefining Software Engineering Excellence." />
       </section>
     </section>
   );
