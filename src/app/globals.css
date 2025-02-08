@@ -3,6 +3,7 @@
 @tailwind utilities;
 body {
   scroll-behavior: smooth;
+  background-color: #000319;
 }
 @layer base {
   :root {
@@ -100,7 +101,6 @@ body {
   }
 }
 
-
 @keyframes neonPulse {
   0% {
     box-shadow: 0 0 5px #4f46e5, 0 0 10px #4f46e5, 0 0 15px #4f46e5;
@@ -146,7 +146,7 @@ body {
   .btn-animate {
     box-shadow: 0 0 3px #4f46e5, 0 0 6px #4f46e5, 0 0 9px #4f46e5;
   }
-  
+
   .btn-animate:hover {
     box-shadow: 0 0 8px #4f46e5, 0 0 16px #4f46e5, 0 0 24px #4f46e5;
   }

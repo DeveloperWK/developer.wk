@@ -1,8 +1,10 @@
+import testimonials from "@/Data/testimonials";
 import AboutMe from "@/UI/Components/AboutMe";
 import CallToAction from "@/UI/Components/CallToAction";
 import FeaturedProjects from "@/UI/Components/FeaturedProjects";
 import HeroSection from "@/UI/Components/HeroSection";
 import SkillsSection from "@/UI/Components/SkillsSection";
+import { AnimatedTestimonials } from "@/UI/Components/Testimonials";
 
 export default function Home() {
   return (
@@ -13,6 +15,7 @@ export default function Home() {
         <FeaturedProjects />
         <SkillsSection />
         <CallToAction />
+        <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
       </section>
     </main>
   );
