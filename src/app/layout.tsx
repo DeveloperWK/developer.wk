@@ -1,11 +1,15 @@
 import Footer from "@/UI/Components/Footer";
 import NavBar from "@/UI/Components/NavBar";
 import { ThemeProvider } from "@/UI/Components/theme-provider";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 export const metadata: Metadata = {
+  manifest: "/manifest.json",
   title: "Developer.WK",
   description: "My Portfolio",
+};
+export const viewport: Viewport = {
+  themeColor: "#000319",
 };
 
 export default function RootLayout({
@@ -15,6 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body>
         <ThemeProvider
           attribute="class"
@@ -22,6 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NavBar />
+
           {children}
           <Footer />
         </ThemeProvider>
