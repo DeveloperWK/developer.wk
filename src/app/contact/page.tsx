@@ -8,7 +8,11 @@ function ContactPage() {
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.6 },
   };
-
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText("wasiful");
+    alert("Email copied to clipboard!");
+    console.log("copyToClipboard");
+  };
   return (
     <section className="min-h-screen bg-[#000319] text-white relative overflow-hidden p-10">
       {/* Background Animation */}
@@ -114,13 +118,18 @@ function ContactPage() {
                   Contact Information
                 </h2>
                 <div className="space-y-4">
-                  <div className="flex items-center gap-4">
+                  <div
+                    className="flex items-center gap-4 cursor-pointer"
+                    onClick={copyToClipboard}
+                  >
                     <div className="bg-blue-500/20 p-3 rounded-lg">
                       <Mail className="w-6 h-6" />
                     </div>
                     <div>
                       <p className="text-sm text-gray-400">Email</p>
-                      <p className="text-lg">contact@example.com</p>
+                      <p className="text-lg" title="click For Copy">
+                        contact@example.com
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
