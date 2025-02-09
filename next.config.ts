@@ -22,7 +22,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "plus.unsplash.com",
+      },
     ],
   },
 };
-export default withPWA(nextConfig);
+export default withPWA({ ...nextConfig });

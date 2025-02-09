@@ -2,6 +2,11 @@
   "name": "Developer.WK",
   "short_name": "Developer.WK",
   "display": "standalone",
+  "scope": "/",
+  "theme_color": "#000319",
+  "background_color": "#000319",
+  "start_url": "/",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "/icons/manifest-icon-192.maskable.png",
@@ -15,9 +20,5 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ],
-  "theme_color": "#000319",
-  "background_color": "#000319",
-  "start_url": "/",
-  "orientation": "portrait"
+  ]
 }
