@@ -1,4 +1,5 @@
 import Footer from "@/UI/Components/Footer";
+import InstallPWAButton from "@/UI/Components/InstallPWAButton";
 import NavBar from "@/UI/Components/NavBar";
 import { ThemeProvider } from "@/UI/Components/theme-provider";
 import type { Metadata, Viewport } from "next";
@@ -30,6 +31,7 @@ export default function RootLayout({
         >
           <NavBar />
 
+          <InstallPWAButton />
           {children}
           <Footer />
         </ThemeProvider>
