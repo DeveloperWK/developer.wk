@@ -1,6 +1,6 @@
 "use client";
-import navItems from "@/Data/NavItems";
 import { Github, Menu, X } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-
+  const { status } = useSession();
   // Close mobile menu on window resize
   useEffect(() => {
     const handleResize = () => {
@@ -64,7 +64,38 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((link) => (
+            <Link href={"/"} className={getLinkClasses("/")}>
+              Home
+            </Link>
+            <Link href={"/blogs"} className={getLinkClasses("/blogs")}>
+              Blogs
+            </Link>
+            <Link href={"/contact"} className={getLinkClasses("/contact")}>
+              Contact
+            </Link>
+
+            {status === "unauthenticated" && (
+              <Link href={"/sign-in"} className={getLinkClasses("/sign-in")}>
+                Sign In
+              </Link>
+            )}
+            {status === "unauthenticated" && (
+              <Link href={"/sign-up"} className={getLinkClasses("/sign-up")}>
+                Sign Up
+              </Link>
+            )}
+            <Link href={"/dashboard"} className={getLinkClasses("/dashboard")}>
+              Dashboard
+            </Link>
+            {status === "authenticated" && (
+              <button
+                className={getLinkClasses("/sign-out")}
+                onClick={() => signOut()}
+              >
+                Sign Out
+              </button>
+            )}
+            {/* {navItems.map((link) => (
               <Link
                 key={link?.id}
                 href={link?.href}
@@ -72,7 +103,7 @@ const Navbar = () => {
               >
                 {link?.title}
               </Link>
-            ))}
+            ))} */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -107,7 +138,65 @@ const Navbar = () => {
         }`}
       >
         <div className="flex flex-col h-full py-4">
-          {navItems.map((link) => (
+          <Link
+            href={"/"}
+            className={getMobileLinkClasses("/")}
+            onClick={() => setIsOpen(false)}
+          >
+            Home
+          </Link>
+          <Link
+            href={"/blogs"}
+            className={getMobileLinkClasses("/blogs")}
+            onClick={() => setIsOpen(false)}
+          >
+            Blogs
+          </Link>
+          <Link
+            href={"/contact"}
+            className={getMobileLinkClasses("/contact")}
+            onClick={() => setIsOpen(false)}
+          >
+            Contact
+          </Link>
+
+          {status === "unauthenticated" && (
+            <Link
+              href={"/sign-in"}
+              onClick={() => setIsOpen(false)}
+              className={getMobileLinkClasses("/sign-in")}
+            >
+              Sign In
+            </Link>
+          )}
+          {status === "unauthenticated" && (
+            <Link
+              href={"/sign-up"}
+              onClick={() => setIsOpen(false)}
+              className={getMobileLinkClasses("/sign-up")}
+            >
+              Sign Up
+            </Link>
+          )}
+          <Link
+            href={"/dashboard"}
+            onClick={() => setIsOpen(false)}
+            className={getMobileLinkClasses("/dashboard")}
+          >
+            Dashboard
+          </Link>
+          {status === "authenticated" && (
+            <button
+              className={getMobileLinkClasses("/sign-out")}
+              onClick={() => {
+                setIsOpen(false);
+                signOut();
+              }}
+            >
+              Sign Out
+            </button>
+          )}
+          {/* {navItems.map((link) => (
             <Link
               key={link?.id}
               href={link?.href}
@@ -116,7 +205,7 @@ const Navbar = () => {
             >
               {link?.title}
             </Link>
-          ))}
+          ))} */}
         </div>
       </div>
     </nav>
