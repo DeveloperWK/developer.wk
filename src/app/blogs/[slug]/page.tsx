@@ -1,69 +1,63 @@
-import { notFound } from "next/navigation";
-
 // This would typically come from your CMS or API
-const posts = {
-  "the-art-of-food-photography": {
-    title: "The Art of Food Photography: A Visual Journey",
-    author: {
-      name: "Sarah Johnson",
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
-      role: "Food Photographer",
-    },
-    date: "March 15, 2024",
-    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel lectus id ligula cursus venenatis. Sed vitae justo lacus. Nulla facilisi. Sed at massa sit amet nunc tincidunt tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.
+// const posts = {
+//   "the-art-of-food-photography": {
+//     title: "The Art of Food Photography: A Visual Journey",
+//     author: {
+//       name: "Sarah Johnson",
+//       image:
+//         "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
+//       role: "Food Photographer",
+//     },
+//     date: "March 15, 2024",
+//     content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel lectus id ligula cursus venenatis. Sed vitae justo lacus. Nulla facilisi. Sed at massa sit amet nunc tincidunt tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.
 
-    Donec porta erat non ex condimentum, sed aliquam elit blandit. Fusce in vestibulum ex. Sed eu blandit lorem dolor sit amet lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet aliquam lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet lorem. Sed euismod, nunc sit amet aliquam lacinia, nisl nisl aliquam nisl.`,
-    mainImage:
-      "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=80",
-    relatedPosts: [
-      {
-        title: "Essential Kitchen Tools for Food Photography",
-        image:
-          "https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=300&q=80",
-        date: "March 10, 2024",
-      },
-      {
-        title: "Lighting Techniques for Food Photography",
-        image:
-          "https://images.unsplash.com/photo-1516824711718-9c1e683412ac?auto=format&fit=crop&w=300&q=80",
-        date: "March 5, 2024",
-      },
-      {
-        title: "Styling Tips for Food Photography",
-        image:
-          "https://images.unsplash.com/photo-1458642849426-cfb724f15ef7?auto=format&fit=crop&w=300&q=80",
-        date: "March 1, 2024",
-      },
-    ],
-  },
-};
-async function fetchBlogPost(slug: string) {
-  const res = await fetch(`http://localhost:3000/api/blogs/${slug}`, {
-    cache: "no-store", // Bypass cache for fresh data
-  });
+//     Donec porta erat non ex condimentum, sed aliquam elit blandit. Fusce in vestibulum ex. Sed eu blandit lorem dolor sit amet lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet aliquam lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet lorem. Sed euismod, nunc sit amet aliquam lacinia, nisl nisl aliquam nisl.`,
+//     mainImage:
+//       "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=80",
+//     relatedPosts: [
+//       {
+//         title: "Essential Kitchen Tools for Food Photography",
+//         image:
+//           "https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=300&q=80",
+//         date: "March 10, 2024",
+//       },
+//       {
+//         title: "Lighting Techniques for Food Photography",
+//         image:
+//           "https://images.unsplash.com/photo-1516824711718-9c1e683412ac?auto=format&fit=crop&w=300&q=80",
+//         date: "March 5, 2024",
+//       },
+//       {
+//         title: "Styling Tips for Food Photography",
+//         image:
+//           "https://images.unsplash.com/photo-1458642849426-cfb724f15ef7?auto=format&fit=crop&w=300&q=80",
+//         date: "March 1, 2024",
+//       },
+//     ],
+//   },
+// };
+// async function fetchBlogPost(slug: string) {
+//   const res = await fetch(`http://localhost:3000/api/blogs/${slug}`, {
+//     cache: "no-store", // Bypass cache for fresh data
+//   });
 
-  if (!res.ok) return null;
-  return res.json();
-}
+//   if (!res.ok) return null;
+//   return res.json();
+// }
 
-export function generateStaticParams() {
-  return Object.keys(posts).map((slug) => ({
-    slug,
-  }));
-}
+// export function generateStaticParams() {
+//   return Object.keys(posts).map((slug) => ({
+//     slug,
+//   }));
+// }
 
-export default async function BlogPost({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const post = await fetchBlogPost(params.slug);
+export default async function BlogPost() {
+  // const post = await fetchBlogPost(params.slug);
 
-  if (!post) {
-    notFound();
-  }
-  console.log("post", post);
+  // if (!post) {
+  //   notFound();
+  // }
+  // console.log("post", post);
 
   return (
     // <div className="min-h-screen bg-[#000319] text-white pt-20">
