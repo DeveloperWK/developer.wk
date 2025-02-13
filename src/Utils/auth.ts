@@ -63,7 +63,7 @@ const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/login",
+    signIn: "/sign-in",
   },
 };
 export default authOptions;
