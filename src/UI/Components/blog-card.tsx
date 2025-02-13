@@ -14,11 +14,11 @@ import Image from "next/image";
 
 interface BlogCardProps {
   title: string;
-  excerpt: string;
+  excerpt?: string;
   category: string;
-  date: string;
-  imageUrl: string;
-  readMoreUrl: string;
+  date?: string;
+  imageUrl?: string;
+  readMoreUrl?: string;
 }
 
 export function BlogCard({

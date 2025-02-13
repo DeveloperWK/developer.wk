@@ -1,7 +1,7 @@
 import connectDB from "@/dbConnect";
 import BlogPost from "@/model/BlogPost";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
-import queryString from "query-string";
 
 export async function POST(req: Request) {
   await connectDB();
@@ -12,6 +12,7 @@ export async function POST(req: Request) {
       content,
       category,
     }).save();
+    revalidateTag("create-blog");
     return NextResponse.json({
       status: 201,
       message: "Blog post created successfully",
@@ -26,18 +27,22 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(request: Request) {
+export async function GET() {
   await connectDB();
-  const searchParams = queryString.parseUrl(request.url).query;
-  const { id } = searchParams;
-  console.log("params", id);
-
-  return Response.json({
-    title: `Blog Post ${id}`,
-    excerpt: "This is the excerpt of the blog post.",
-    category: "Technology",
-    date: "2024-01-01",
-    imageUrl: "https://example.com/image.jpg",
-    readMoreUrl: `/blog/`,
-  });
+  // const searchParams = queryString.parseUrl(request.url).query;
+  // const { id } = searchParams;
+  try {
+    const blogs = await BlogPost.find().select("-_id").sort({ createdAt: -1 });
+    return NextResponse.json({
+      status: 200,
+      message: "Blogs fetched successfully",
+      blogs,
+    });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({
+      status: 500,
+      message: "Something went wrong",
+    });
+  }
 }
