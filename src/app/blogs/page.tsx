@@ -76,7 +76,7 @@ export default function BlogsPage() {
     try {
       setIsLoading(true);
       const GetBlogPosts = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/blogs`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/get-blog-posts`,
         {
           next: { tags: ["create-blog"] },
         }

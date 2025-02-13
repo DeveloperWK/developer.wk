@@ -2,6 +2,7 @@ import Footer from "@/UI/Components/Footer";
 import NavBar from "@/UI/Components/NavBar";
 import { ThemeProvider } from "@/UI/Components/theme-provider";
 import SessionProviderWrapper from "@/UI/lib/SessionProviderWrapper";
+import DisableContextMenu from "@/Utils/DisableContextMenu";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 export const metadata: Metadata = {
@@ -25,15 +26,17 @@ export default function RootLayout({
       </head>
       <body>
         <SessionProviderWrapper>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            disableTransitionOnChange
-          >
-            <NavBar />
-            {children}
-            <Footer />
-          </ThemeProvider>
+          <DisableContextMenu>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              disableTransitionOnChange
+            >
+              <NavBar />
+              {children}
+              <Footer />
+            </ThemeProvider>
+          </DisableContextMenu>
         </SessionProviderWrapper>
       </body>
     </html>
