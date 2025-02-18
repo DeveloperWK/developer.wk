@@ -184,13 +184,13 @@ const Navbar = () => {
               Sign Up
             </Link>
           )}
-          <Link
+          <a
             href={"/dashboard"}
             onClick={() => setIsOpen(false)}
             className={getMobileLinkClasses("/dashboard")}
           >
             Dashboard
-          </Link>
+          </a>
           {status === "authenticated" && (
             <button
               className={getMobileLinkClasses("/sign-out")}
