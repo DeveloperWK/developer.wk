@@ -22,7 +22,7 @@ export default function AddBlogPost() {
     title: string;
     content: string;
     category: string;
-    image?: string;
+    imageUrl?: string;
   }
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
@@ -36,7 +36,7 @@ export default function AddBlogPost() {
         { method: "POST", body: formData }
       );
       const result = await res.json();
-      setValue("image", result?.secure_url);
+      setValue("imageUrl", result?.secure_url);
       setImagePreview(result?.secure_url);
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
@@ -64,7 +64,7 @@ export default function AddBlogPost() {
       setValue("title", "");
       setValue("content", "");
       setValue("category", "");
-      setValue("image", "");
+      setValue("imageUrl", "");
       setImagePreview(null);
 
       console.log(data);
@@ -125,13 +125,13 @@ export default function AddBlogPost() {
               <label className="block font-medium">Featured Image</label>
               <input
                 type="file"
-                {...register("image")}
+                {...register("imageUrl")}
                 onChange={handleImageUpload}
                 className="w-full border p-2 rounded"
               />
             </div>
-            {errors.image && (
-              <p className="text-red-500 text-sm">{errors.image.message}</p>
+            {errors.imageUrl && (
+              <p className="text-red-500 text-sm">{errors.imageUrl.message}</p>
             )}
             {imagePreview && (
               <div className="mt-4">
