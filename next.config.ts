@@ -26,6 +26,12 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "plus.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "", // Leave empty for standard HTTPS
+        pathname: "/**", // Allow all paths under res.cloudinary.com
+      },
     ],
   },
 };

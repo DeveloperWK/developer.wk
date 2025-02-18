@@ -1,5 +1,4 @@
 "use client";
-
 import { Badge } from "@/UI/Components/badge";
 import { Button } from "@/UI/Components/button";
 import {
@@ -11,15 +10,17 @@ import {
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
-interface BlogCardProps {
+export type BlogCardProps = {
   title: string;
   excerpt?: string;
   category: string;
   date?: string;
   imageUrl?: string;
   readMoreUrl?: string;
-}
+  _id?: string;
+};
 
 export function BlogCard({
   title,
@@ -70,10 +71,13 @@ export function BlogCard({
             asChild
             className="w-full bg-primary text-primary-foreground hover:bg-primary/90 group font-semibold"
           >
-            <a href={readMoreUrl} className="flex items-center justify-center">
+            <Link
+              href={readMoreUrl as string}
+              className="flex items-center justify-center"
+            >
               Read More
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 ease-in-out group-hover:translate-x-1" />
-            </a>
+            </Link>
           </Button>
         </CardFooter>
       </Card>

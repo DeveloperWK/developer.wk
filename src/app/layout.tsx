@@ -1,4 +1,5 @@
 import Footer from "@/UI/Components/Footer";
+import GlobalErrorBoundary from "@/UI/Components/GlobalErrorBoundary";
 import NavBar from "@/UI/Components/NavBar";
 import { ThemeProvider } from "@/UI/Components/theme-provider";
 import SessionProviderWrapper from "@/UI/lib/SessionProviderWrapper";
@@ -26,17 +27,19 @@ export default function RootLayout({
       </head>
       <body>
         <SessionProviderWrapper>
-          <DisableContextMenu>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              disableTransitionOnChange
-            >
-              <NavBar />
-              {children}
-              <Footer />
-            </ThemeProvider>
-          </DisableContextMenu>
+          <GlobalErrorBoundary>
+            <DisableContextMenu>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="dark"
+                disableTransitionOnChange
+              >
+                <NavBar />
+                {children}
+                <Footer />
+              </ThemeProvider>
+            </DisableContextMenu>
+          </GlobalErrorBoundary>
         </SessionProviderWrapper>
       </body>
     </html>

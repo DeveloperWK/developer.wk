@@ -1,16 +1,18 @@
 import connectDB from "@/dbConnect";
 import BlogPost from "@/model/BlogPost";
 import { NextResponse } from "next/server";
-export async function GET() {
+import queryString from "query-string";
+
+export async function GET(request: Request) {
   await connectDB();
-  // const searchParams = queryString.parseUrl(request.url).query;
-  // const { id } = searchParams;
+  const searchParams = queryString.parseUrl(request.url).query;
+  const { slug } = searchParams;
   try {
-    const blogs = await BlogPost.find().sort({ createdAt: -1 });
+    const blog = await BlogPost.findOne({ _id: slug });
     return NextResponse.json({
       status: 200,
-      message: "Blogs fetched successfully",
-      blogs,
+      message: "Blog fetched successfully",
+      blog,
     });
   } catch (error) {
     console.error(error);

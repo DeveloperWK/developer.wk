@@ -1,141 +1,100 @@
-// This would typically come from your CMS or API
-// const posts = {
-//   "the-art-of-food-photography": {
-//     title: "The Art of Food Photography: A Visual Journey",
-//     author: {
-//       name: "Sarah Johnson",
-//       image:
-//         "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
-//       role: "Food Photographer",
-//     },
-//     date: "March 15, 2024",
-//     content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel lectus id ligula cursus venenatis. Sed vitae justo lacus. Nulla facilisi. Sed at massa sit amet nunc tincidunt tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.
+import Image from "next/image";
+// Generate dynamic metadata for the blog post
 
-//     Donec porta erat non ex condimentum, sed aliquam elit blandit. Fusce in vestibulum ex. Sed eu blandit lorem dolor sit amet lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc sit amet aliquam lacinia, nisl nisl aliquam nisl, nec aliquam nisl nisl sit amet lorem. Sed euismod, nunc sit amet aliquam lacinia, nisl nisl aliquam nisl.`,
-//     mainImage:
-//       "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=80",
-//     relatedPosts: [
-//       {
-//         title: "Essential Kitchen Tools for Food Photography",
-//         image:
-//           "https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=300&q=80",
-//         date: "March 10, 2024",
-//       },
-//       {
-//         title: "Lighting Techniques for Food Photography",
-//         image:
-//           "https://images.unsplash.com/photo-1516824711718-9c1e683412ac?auto=format&fit=crop&w=300&q=80",
-//         date: "March 5, 2024",
-//       },
-//       {
-//         title: "Styling Tips for Food Photography",
-//         image:
-//           "https://images.unsplash.com/photo-1458642849426-cfb724f15ef7?auto=format&fit=crop&w=300&q=80",
-//         date: "March 1, 2024",
-//       },
-//     ],
-//   },
-// };
-// async function fetchBlogPost(slug: string) {
-//   const res = await fetch(`http://localhost:3000/api/blogs/${slug}`, {
-//     cache: "no-store", // Bypass cache for fresh data
-//   });
+interface BlogPostData {
+  blog?: {
+    title: string;
+    excerpt: string;
+    image: string;
+    content: string;
+    author: string;
+    date: string;
+    authorImage: string;
+  };
+}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
-//   if (!res.ok) return null;
-//   return res.json();
-// }
+  // Fetch the blog post data to dynamically generate metadata
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/get-blog-post?slug=${slug}`
+  );
+  const data = await res.json();
 
-// export function generateStaticParams() {
-//   return Object.keys(posts).map((slug) => ({
-//     slug,
-//   }));
-// }
+  return {
+    title: data?.blog?.title || "Blog Post",
+    description: data?.blog?.excerpt || "Read this blog post to learn more.",
+    openGraph: {
+      images: [data?.blog?.image || "/default-image.jpg"],
+    },
+  };
+}
 
-export default async function BlogPost() {
-  // const post = await fetchBlogPost(params.slug);
+// Server Component for BlogPost
+export default async function BlogPost({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
-  // if (!post) {
-  //   notFound();
-  // }
-  // console.log("post", post);
+  // Fetch the blog post data
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/get-blog-post?slug=${slug}`,
+    { cache: "no-store" } // Disable caching if needed
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch blog post");
+  }
+
+  const post: BlogPostData = await res.json();
 
   return (
-    // <div className="min-h-screen bg-[#000319] text-white pt-20">
-    //   <main className="container mx-auto px-4 py-8">
-    //     {/* Header */}
-    //     <div className="max-w-3xl mx-auto mb-8">
-    //       <h1 className="text-4xl font-bold mb-6 tracking-tight">
-    //         {post.title}
-    //       </h1>
-    //       <div className="flex items-center gap-4 mb-8">
-    //         <Avatar className="border-2 border-white/10">
-    //           <AvatarImage src={post.author.image} alt={post.author.name} />
-    //           <AvatarFallback>{post.author.name[0]}</AvatarFallback>
-    //         </Avatar>
-    //         <div>
-    //           <p className="font-medium">{post.author.name}</p>
-    //           <p className="text-gray-400 text-sm">{post.author.role}</p>
-    //         </div>
-    //         <div className="flex items-center ml-auto text-gray-400">
-    //           <Calendar className="w-4 h-4 mr-2" />
-    //           <span className="text-sm">{post.date}</span>
-    //         </div>
-    //       </div>
-    //     </div>
+    <section className="min-h-screen flex flex-col justify-center p-20 text-white">
+      <div className="max-w-3xl mx-auto p-4">
+        {/* Dynamic Title */}
+        <h1 className="text-3xl font-bold sm:text-4xl">{post?.blog?.title}</h1>
 
-    //     {/* Main Image */}
-    //     <div className="max-w-4xl mx-auto mb-12 relative aspect-[16/9] rounded-lg overflow-hidden">
-    //       <Image
-    //         src={post.mainImage}
-    //         alt={post.title}
-    //         fill
-    //         className="object-cover"
-    //         priority
-    //         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-    //       />
-    //     </div>
+        {/* Author Information */}
+        <div className="mt-4 flex items-center space-x-4">
+          <Image
+            src={post?.blog?.authorImage || "/author.jpg"}
+            alt="Author"
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
+          <div>
+            <p className="text-gray-700 font-medium">
+              {post?.blog?.author || "John Doe"}
+            </p>
+            <p className="text-sm text-gray-500">
+              {post?.blog?.date || "February 17, 2025"}
+            </p>
+          </div>
+        </div>
 
-    //     {/* Content */}
-    //     <div className="max-w-3xl mx-auto mb-16">
-    //       <div className="prose prose-invert prose-lg">
-    //         {post.content.split("\n\n").map((paragraph, index) => (
-    //           <p key={index} className="mb-6 leading-relaxed text-gray-200">
-    //             {paragraph}
-    //           </p>
-    //         ))}
-    //       </div>
-    //     </div>
+        {/* Featured Image */}
+        <Image
+          src={post?.blog?.image || "/blog-image.jpg"}
+          alt="Blog Image"
+          width={800}
+          height={400}
+          className="mt-6 w-full rounded-lg shadow-md"
+        />
 
-    //     {/* Related Posts */}
-    //     <div className="max-w-4xl mx-auto">
-    //       <h2 className="text-2xl font-bold mb-8 tracking-tight">
-    //         Related Posts
-    //       </h2>
-    //       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-    //         {post.relatedPosts.map((relatedPost, index) => (
-    //           <div
-    //             key={index}
-    //             className="group cursor-pointer bg-white/5 rounded-lg p-4 transition-all hover:bg-white/10"
-    //           >
-    //             <div className="relative aspect-[4/3] mb-4 rounded-lg overflow-hidden">
-    //               <Image
-    //                 src={relatedPost.image}
-    //                 alt={relatedPost.title}
-    //                 fill
-    //                 className="object-cover transition-transform group-hover:scale-105"
-    //                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 300px"
-    //               />
-    //             </div>
-    //             <h3 className="font-medium mb-2 group-hover:text-blue-400 transition-colors">
-    //               {relatedPost.title}
-    //             </h3>
-    //             <p className="text-sm text-gray-400">{relatedPost.date}</p>
-    //           </div>
-    //         ))}
-    //       </div>
-    //     </div>
-    //   </main>
-    // </div>
-    <h1>hello</h1>
+        {/* Blog Content */}
+        <div className="mt-6 text-white leading-relaxed space-y-4">
+          {post?.blog?.content?.split("\n").map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

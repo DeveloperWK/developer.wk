@@ -5,12 +5,14 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   await connectDB();
-  const { title, content, category } = await req.json();
+  const { title, content, imageUrl } = await req.json();
+  console.log("Image:", imageUrl);
+
   try {
     const blog = new BlogPost({
       title,
       content,
-      category,
+      imageUrl,
     }).save();
     revalidateTag("create-blog");
     return NextResponse.json({
