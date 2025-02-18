@@ -26,7 +26,8 @@ const SignIn = () => {
       if (res?.error) {
         setErrorMessage(res?.error);
         setIsLoading(false);
-      } else {
+      }
+      if (res?.ok) {
         router.push("/");
       }
     } catch (error) {

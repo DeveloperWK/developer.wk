@@ -5,6 +5,7 @@ import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const authOptions: AuthOptions = {
+  
   session: {
     strategy: "jwt",
   },
@@ -32,7 +33,9 @@ const authOptions: AuthOptions = {
         if (!isPasswordValid) {
           throw new Error("Invalid password");
         }
-        return user;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password: _, ...sanitizedUser } = user.toObject();
+        return sanitizedUser;
       },
     }),
   ],
@@ -41,14 +44,19 @@ const authOptions: AuthOptions = {
       await connectDB();
       if (user) {
         return true;
+      } else {
+        return false;
       }
-      return false;
     },
 
     jwt: async ({ token }) => {
       await connectDB();
-      const userByEmail = await Users.findOne({ email: token.email });
-      token.user = userByEmail;
+      const userByEmail = await Users.findOne({ email: token.email }).select(
+        "-password"
+      );
+      if (userByEmail) {
+        token.user = userByEmail;
+      }
       return token;
     },
     session: async ({ session, token }) => {
@@ -63,7 +71,7 @@ const authOptions: AuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/sign-in",
+    signIn: "/auth/sign-in",
   },
 };
 export default authOptions;

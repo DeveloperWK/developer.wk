@@ -1,4 +1,6 @@
+// @ts-check
 import type { NextConfig } from "next";
+
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
@@ -7,6 +9,9 @@ const withPWA = require("@ducanh2912/next-pwa").default({
   disable: process.env.NODE_ENV === "development",
   cacheOnFrontEndNav: true,
   aggressiveFrontEndNavCaching: true,
+  cacheStartUrl: true,
+  dynamicStartUrl: true,
+  dynamicStartUrlRedirect: true,
   reloadOnOnline: true,
   swMinify: true,
   workboxOption: {

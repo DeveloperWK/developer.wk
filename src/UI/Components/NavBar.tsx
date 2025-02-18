@@ -75,18 +75,24 @@ const Navbar = () => {
             </Link>
 
             {status === "unauthenticated" && (
-              <Link href={"/sign-in"} className={getLinkClasses("/sign-in")}>
+              <Link
+                href={"/auth/sign-in"}
+                className={getLinkClasses("/auth/sign-in")}
+              >
                 Sign In
               </Link>
             )}
             {status === "unauthenticated" && (
-              <Link href={"/sign-up"} className={getLinkClasses("/sign-up")}>
+              <Link
+                href={"/auth/sign-up"}
+                className={getLinkClasses("/auth/sign-up")}
+              >
                 Sign Up
               </Link>
             )}
-            <Link href={"/dashboard"} className={getLinkClasses("/dashboard")}>
+            <a href={"/dashboard"} className={getLinkClasses("/dashboard")}>
               Dashboard
-            </Link>
+            </a>
             {status === "authenticated" && (
               <button
                 className={getLinkClasses("/sign-out")}

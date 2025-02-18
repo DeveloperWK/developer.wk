@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/UI/Components/theme-provider";
 import SessionProviderWrapper from "@/UI/lib/SessionProviderWrapper";
 import DisableContextMenu from "@/Utils/DisableContextMenu";
 import type { Metadata, Viewport } from "next";
+
 import "./globals.css";
 export const metadata: Metadata = {
   manifest: "/manifest.json",

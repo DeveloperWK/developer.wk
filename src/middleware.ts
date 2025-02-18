@@ -11,15 +11,13 @@ export default withAuth(
     const role = (req.nextauth?.token?.user as { role: string })?.role;
 
     if (url?.includes("/dashboard") && role !== "admin") {
-      return NextResponse.redirect(new URL("/sign-in", req.url));
+      return NextResponse.redirect(new URL("/auth/sign-in", req.url));
     }
+    return NextResponse.next();
   },
   {
     callbacks: {
-      authorized: ({ token }) => {
-        if (!token) return false;
-        return true;
-      },
+      authorized: ({ token }) => !!token,
     },
   }
 );
