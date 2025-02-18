@@ -1,3 +1,4 @@
+import SummarizeBlogPosts from "@/UI/Components/SummarizeBlogPosts";
 import Image from "next/image";
 // Generate dynamic metadata for the blog post
 
@@ -5,7 +6,7 @@ interface BlogPostData {
   blog?: {
     title: string;
     excerpt: string;
-    image: string;
+    imageUrl: string;
     content: string;
     author: string;
     date: string;
@@ -29,7 +30,7 @@ export async function generateMetadata({
     title: data?.blog?.title || "Blog Post",
     description: data?.blog?.excerpt || "Read this blog post to learn more.",
     openGraph: {
-      images: [data?.blog?.image || "/default-image.jpg"],
+      images: [data?.blog?.imageUrl || "/default-image.jpg"],
     },
   };
 }
@@ -81,7 +82,7 @@ export default async function BlogPost({
 
         {/* Featured Image */}
         <Image
-          src={post?.blog?.image || "/blog-image.jpg"}
+          src={post?.blog?.imageUrl || "/blog-image.jpg"}
           alt="Blog Image"
           width={800}
           height={400}
@@ -95,6 +96,7 @@ export default async function BlogPost({
           ))}
         </div>
       </div>
+      <SummarizeBlogPosts blogPostsContent={post?.blog?.content || ""} />
     </section>
   );
 }

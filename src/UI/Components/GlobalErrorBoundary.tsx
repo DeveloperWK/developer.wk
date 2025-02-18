@@ -8,7 +8,7 @@ const ErrorFallback = ({
   resetErrorBoundary: () => void;
 }) => {
   return (
-    <section className="h-screen flex items-center justify-center">
+    <section className="h-screen flex flex-col items-center justify-center">
       <h1>Something went wrong</h1>
       <p>{error?.message || "An unexpected error occurred"}</p>
       <button onClick={resetErrorBoundary}>Try again</button>
