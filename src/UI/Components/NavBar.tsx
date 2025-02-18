@@ -168,18 +168,18 @@ const Navbar = () => {
 
           {status === "unauthenticated" && (
             <Link
-              href={"/sign-in"}
+              href={"/auth/sign-in"}
               onClick={() => setIsOpen(false)}
-              className={getMobileLinkClasses("/sign-in")}
+              className={getMobileLinkClasses("/auth/sign-in")}
             >
               Sign In
             </Link>
           )}
           {status === "unauthenticated" && (
             <Link
-              href={"/sign-up"}
+              href={"/auth/sign-up"}
               onClick={() => setIsOpen(false)}
-              className={getMobileLinkClasses("/sign-up")}
+              className={getMobileLinkClasses("/auth/sign-up")}
             >
               Sign Up
             </Link>
