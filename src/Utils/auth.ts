@@ -3,7 +3,6 @@ import Users from "@/model/User";
 import bcrypt from "bcrypt";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-console.log("token:", process.env.NEXT_AUTH_SECRET);
 const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
