@@ -2,12 +2,7 @@
   "name": "Developer.WK",
   "short_name": "Developer.WK",
   "display": "standalone",
-  "display_override": [
-    "window-controls-overlay",
-    "minimal-ui",
-    "fullscreen",
-    "browser"
-  ],
+  "display_override": ["window-controls-overlay", "minimal-ui", "fullscreen"],
   "categories": ["technology", "development", "portfolio", "blogging"],
   "scope": "/",
   "theme_color": "#000319",
