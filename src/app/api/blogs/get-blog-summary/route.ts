@@ -7,7 +7,7 @@ export async function POST(req: Request) {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_HUGGING_API_KEY}`,
+          Authorization: `Bearer ${process.env.NEXT_HUGGING_API_KEY}`,
         },
         body: JSON.stringify({
           inputs: prompt,

@@ -5,7 +5,6 @@ import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const authOptions: AuthOptions = {
-  
   session: {
     strategy: "jwt",
   },
@@ -69,7 +68,7 @@ const authOptions: AuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXT_AUTH_SECRET,
   pages: {
     signIn: "/auth/sign-in",
   },

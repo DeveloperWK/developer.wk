@@ -10,7 +10,7 @@ async function connectDB() {
 
   // If not connected, proceed with the connection
   try {
-    await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI as string);
+    await mongoose.connect(process.env.NEXT_MONGO_URI as string);
     console.log("Database connected successfully");
   } catch (error) {
     console.error("Database connection failed:", error);
