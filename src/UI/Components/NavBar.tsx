@@ -83,7 +83,7 @@ const Navbar = () => {
                 Sign In
               </Link>
             )}
-            {status === "unauthenticated" && (
+            {status === "authenticated" && (
               <Link
                 href={"/auth/sign-up"}
                 className={getLinkClasses("/auth/sign-up")}
@@ -176,7 +176,7 @@ const Navbar = () => {
               Sign In
             </Link>
           )}
-          {status === "unauthenticated" && (
+          {status === "authenticated" && (
             <Link
               href={"/auth/sign-up"}
               onClick={() => setIsOpen(false)}

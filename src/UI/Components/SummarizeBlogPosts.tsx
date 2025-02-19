@@ -20,33 +20,43 @@ const SummarizeBlogPosts = ({
 
   const summarizeBlogPosts = async () => {
     setIsLoading(true);
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/get-blog-summary`,
-      {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          prompt: blogPostsContent,
-        }),
-      }
-    );
-    const data = await res.json();
-    setData(data);
-    setIsLoading(false);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/get-blog-summary`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: blogPostsContent }),
+        }
+      );
+      const result = await res.json();
+      setData(result);
+    } catch (error) {
+      console.error("Error fetching summary:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
   return (
-    <>
-      <Button onClick={summarizeBlogPosts}>
+    <div className="w-full max-w-2xl mx-auto p-4 flex flex-col items-center gap-4">
+      <Button
+        onClick={summarizeBlogPosts}
+        disabled={isLoading}
+        className="px-6 py-3 text-lg font-semibold transition-all duration-300 rounded-lg shadow-md bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400"
+      >
         {isLoading ? "Summarizing..." : "Summarize Blog Posts"}
       </Button>
-      {data && (
-        <section className="text-white p-4 border border-gray-500 mt-4 transition-all duration-300 md:p-6 md:mt-6 lg:p-8 lg:mt-8 hover:scale-105 md:hover:scale-110 lg:hover:scale-115">
-          <p>{data?.summary}</p>
+      {data?.summary && (
+        <section className="text-white p-4 md:p-6 lg:p-8 border border-gray-500 mt-4 rounded-lg bg-gray-800 shadow-lg transition-transform duration-300 hover:scale-105">
+          <p className="text-lg leading-relaxed text-gray-300">
+            {data.summary}
+          </p>
         </section>
       )}
-    </>
+    </div>
   );
 };
 
