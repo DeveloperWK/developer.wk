@@ -13,6 +13,7 @@ export default function AddBlogPost() {
     register,
     handleSubmit,
     setValue,
+    trigger,
     formState: { errors },
   } = useForm<BlogPostData>();
   const [loading, setLoading] = useState(false);
@@ -25,31 +26,51 @@ export default function AddBlogPost() {
     imageUrl?: string;
   }
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true); // Indicate loading state
+
     try {
-      const file = e.target.files![0];
+      const file = e.target.files?.[0];
+      if (!file) alert("No image selected");
+
       const formData = new FormData();
-      formData.append("file", file);
+      if (file) {
+        formData.append("file", file);
+      }
       formData.append("upload_preset", "my_portfolio");
       formData.append("cloud_name", "dhagnak0m");
+
       const res = await fetch(
         "https://api.cloudinary.com/v1_1/dhagnak0m/image/upload",
-        { method: "POST", body: formData }
+        {
+          method: "POST",
+          body: formData,
+        }
       );
+
       const result = await res.json();
-      setValue("imageUrl", result?.secure_url);
-      setImagePreview(result?.secure_url);
+      if (!result.secure_url) throw new Error("Upload failed");
+
+      // Ensure the image URL is properly set
+      setValue("imageUrl", result.secure_url, { shouldValidate: true });
+      await trigger("imageUrl");
+      setImagePreview(result.secure_url);
     } catch (error) {
       console.error("Error uploading image to Cloudinary:", error);
-      throw new Error("Failed to upload image");
+      alert("Failed to upload image");
+    } finally {
+      setLoading(false); // Stop loading state
     }
   };
+
   const onSubmit = async (data: BlogPostData) => {
+    if (!data.imageUrl || data.imageUrl.includes("FileList")) {
+      alert("Please upload an image");
+    }
     setLoading(true);
 
     try {
-      if (!imagePreview) {
-        alert("Image is Uploading, please wait...");
-        return;
+      if (!imagePreview && !data.imageUrl) {
+        alert("Please upload an image");
       }
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/create-blog-post`,
@@ -59,6 +80,8 @@ export default function AddBlogPost() {
           body: JSON.stringify(data),
         }
       );
+      const result = await response.json();
+      console.log(result);
       if (!response.ok) throw new Error("Failed to add blog");
       alert("Blog posted successfully!");
       setValue("title", "");
@@ -125,7 +148,6 @@ export default function AddBlogPost() {
               <label className="block font-medium">Featured Image</label>
               <input
                 type="file"
-                {...register("imageUrl")}
                 onChange={handleImageUpload}
                 className="w-full border p-2 rounded"
               />
