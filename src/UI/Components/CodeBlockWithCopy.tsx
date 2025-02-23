@@ -61,28 +61,8 @@ const CodeBlockWithCopy: React.FC<CodeBlockWithCopyProps> = ({
           (e) => (e.currentTarget.style.background = "#2e7d32") // Revert to original color
         }
       >
-        Copy
+        {copied ? "Copied!" : "Copy"}
       </button>
-
-      {/* Tooltip Animation */}
-      {copied && (
-        <div
-          style={{
-            position: "absolute",
-            top: "-2.5rem",
-            right: "0.5rem",
-            padding: "0.5rem 1rem",
-            background: "#4caf50", // Light green background
-            color: "#fff",
-            borderRadius: "4px",
-            fontSize: "0.875rem",
-            animation: "fadeInOut 2s ease-in-out",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          Copied!
-        </div>
-      )}
 
       {/* Syntax Highlighted Code Block */}
       <SyntaxHighlighter

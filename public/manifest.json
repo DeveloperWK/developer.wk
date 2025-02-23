@@ -56,14 +56,14 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshots/screenshot-wide.png",
-      "sizes": "1280x720",
-      "type": "image/png",
+      "src": "/screenshots/screenshot-wide.webp",
+      "sizes": "1343x768",
+      "type": "image/webp",
       "form_factor": "wide"
     },
     {
       "src": "/screenshots/mobile-screenshot-wide.webp",
-      "sizes": "1024x1024",
+      "sizes": "720x1444",
       "type": "image/webp"
     }
   ]
