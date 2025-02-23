@@ -13,12 +13,11 @@ const BlogPostSchema = new Schema(
     imageUrl: {
       type: String,
     },
-
-    // category: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Category",
-    //   default: "Tech",
-    // },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
   },
   { timestamps: true }
 );

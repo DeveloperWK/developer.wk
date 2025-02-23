@@ -1,18 +1,17 @@
 import connectDB from "@/dbConnect";
-import BlogPost from "@/model/BlogPost";
-import { NextResponse } from "next/server";
+import Category from "@/model/Category";
 
+import { NextResponse } from "next/server";
 export async function GET() {
   await connectDB();
+
   try {
-    const blogs = await BlogPost.find()
-      .sort({ createdAt: -1 })
-      .populate("category");
+    const categories = await Category.find().sort({ createdAt: -1 });
 
     return NextResponse.json({
       status: 200,
-      message: "Blogs fetched successfully",
-      blogs,
+      message: "Categories fetched successfully",
+      categories,
     });
   } catch (error) {
     console.error(error);

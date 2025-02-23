@@ -9,9 +9,8 @@ function ContactPage() {
     transition: { duration: 0.6 },
   };
   const copyToClipboard = () => {
-    navigator.clipboard.writeText("wasiful");
+    navigator.clipboard.writeText("wasifulkabir2023@gmail.com");
     alert("Email copied to clipboard!");
-    console.log("copyToClipboard");
   };
   return (
     <section className="min-h-screen bg-[#000319] text-white relative overflow-hidden p-10">
@@ -128,7 +127,7 @@ function ContactPage() {
                     <div>
                       <p className="text-sm text-gray-400">Email</p>
                       <p className="text-lg" title="click For Copy">
-                        contact@example.com
+                        wasifulkabir2023@gmail.com
                       </p>
                     </div>
                   </div>
@@ -138,7 +137,7 @@ function ContactPage() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-400">Location</p>
-                      <p className="text-lg">San Francisco, CA</p>
+                      <p className="text-lg">Dhaka, BD</p>
                     </div>
                   </div>
                 </div>

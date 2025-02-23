@@ -15,7 +15,9 @@ import Link from "next/link";
 export type BlogCardProps = {
   title: string;
   excerpt?: string;
-  category: string;
+  category: {
+    name: string;
+  };
   date?: string;
   imageUrl?: string;
   readMoreUrl?: string;
@@ -53,7 +55,7 @@ export function BlogCard({
               variant="secondary"
               className="text-xs font-semibold bg-primary text-primary-foreground"
             >
-              {category}
+              {category?.name}
             </Badge>
             <span className="text-sm font-medium text-muted-foreground">
               {date}

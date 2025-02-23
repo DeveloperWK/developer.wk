@@ -22,6 +22,7 @@ async function getBlogPosts(query: QueryParams) {
       throw new Error("Failed to fetch data");
     }
     const { status, message, blogs } = await res.json();
+
     return {
       status,
       message,
