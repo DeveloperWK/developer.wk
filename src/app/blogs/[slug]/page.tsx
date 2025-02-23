@@ -53,7 +53,7 @@ export default async function BlogPost({
     <section className="min-h-screen flex flex-col justify-center px-4 py-16 bg-gray-900 text-white overflow-hidden">
       <div className="max-w-4xl mx-auto w-full space-y-6 overflow-x-hidden">
         {/* Title */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-wide text-white break-words">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-wide text-white break-words pt-7">
           {post?.blog?.title}
         </h1>
 
