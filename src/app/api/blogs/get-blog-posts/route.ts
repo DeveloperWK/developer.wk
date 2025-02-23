@@ -1,13 +1,15 @@
 import connectDB from "@/dbConnect";
 import BlogPost from "@/model/BlogPost";
+import Category from "@/model/Category";
 import { NextResponse } from "next/server";
-
+void Category;
 export async function GET() {
   await connectDB();
   try {
     const blogs = await BlogPost.find()
-      .sort({ createdAt: -1 })
-      .populate("category");
+      .populate("category")
+      .lean()
+      .sort({ createdAt: -1 });
 
     return NextResponse.json({
       status: 200,

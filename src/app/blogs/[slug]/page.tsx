@@ -34,7 +34,6 @@ export async function generateMetadata({
   };
 }
 
-// Server Component for BlogPost
 export default async function BlogPost({
   params,
 }: {
@@ -51,24 +50,26 @@ export default async function BlogPost({
   const post: BlogPostData = await res.json();
 
   return (
-    <section className="min-h-screen flex flex-col justify-center p-4 pt-24 text-white bg-gray-900">
-      <div className="max-w-4xl mx-auto p-4">
-        {/* Dynamic Title */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-left leading-tight tracking-wide text-white">
+    <section className="min-h-screen flex flex-col justify-center px-4 py-16 bg-gray-900 text-white overflow-hidden">
+      <div className="max-w-4xl mx-auto w-full space-y-6 overflow-x-hidden">
+        {/* Title */}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-wide text-white break-words">
           {post?.blog?.title}
         </h1>
 
-        {/* Author Information */}
-        <div className="mt-4 flex items-center space-x-4">
+        {/* Author Section */}
+        <div className="flex items-center space-x-4">
           <Image
-            src={"/logo.jpg"}
+            src={post?.blog?.authorImage || "/logo.jpg"}
             alt="Author"
             width={50}
             height={50}
-            className="rounded-full"
+            className="rounded-full border border-gray-700"
           />
           <div>
-            <p className="text-gray-300 font-medium">Owner</p>
+            <p className="text-gray-300 font-medium">
+              {post?.blog?.author || "Owner"}
+            </p>
             <p className="text-sm text-gray-400">
               {post?.blog?.updatedAt
                 ? new Date(post.blog.updatedAt).toLocaleDateString("en-US", {
@@ -82,23 +83,20 @@ export default async function BlogPost({
         </div>
 
         {/* Featured Image */}
-        <Image
-          src={
-            post?.blog?.imageUrl
-              ? `${post.blog.imageUrl}?e_blur:100,q_auto:best`
-              : "/blog-image.jpg"
-          }
-          alt="Blog Image"
-          width={1200}
-          height={600}
-          placeholder="blur"
-          blurDataURL={`${post?.blog?.imageUrl}?e_blur:100,q_auto:best`} // Using Cloudinary transformation for blur
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="mt-6 w-full md:w-2/3 lg:w-1/2 rounded-lg shadow-lg mx-auto"
-        />
+        {post?.blog?.imageUrl && (
+          <div className="w-full flex justify-center overflow-hidden">
+            <Image
+              src={`${post.blog.imageUrl}?e_blur:100,q_auto:best`}
+              alt="Blog Image"
+              width={1200}
+              height={600}
+              className="rounded-lg shadow-lg object-cover w-full sm:w-3/4 md:w-2/3 lg:w-1/2"
+            />
+          </div>
+        )}
 
         {/* Blog Content */}
-        <div className="mt-8 text-lg text-gray-300 leading-relaxed space-y-6">
+        <div className="prose prose-invert max-w-none text-gray-300 leading-relaxed sm:px-4 break-words overflow-x-hidden">
           <MdRender>{post?.blog?.content || "No content available."}</MdRender>
         </div>
 
