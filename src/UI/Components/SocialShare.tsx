@@ -1,10 +1,31 @@
 "use client";
-import { useState } from "react";
-import { FaCopy, FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import {
+  FaCopy,
+  FaFacebook,
+  FaFacebookMessenger,
+  FaLinkedin,
+} from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa6";
 
 const SocialShare = () => {
+  // const [copySuccess, setCopySuccess] = useState(false);
+  // const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+
+  // const handleCopyLink = () => {
+  //   navigator.clipboard.writeText(currentUrl).then(() => {
+  //     setCopySuccess(true);
+  //     setTimeout(() => setCopySuccess(false), 2000);
+  //   });
+  // };
   const [copySuccess, setCopySuccess] = useState(false);
-  const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+  const [currentUrl, setCurrentUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, []); // Runs only once after component mounts
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(currentUrl).then(() => {
@@ -12,30 +33,37 @@ const SocialShare = () => {
       setTimeout(() => setCopySuccess(false), 2000);
     });
   };
-
   return (
     <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
       {[
         {
           icon: <FaFacebook className="text-white w-5 h-5" />,
-          url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+          url: `https://www.facebook.com/dialog/share?app_id=YOUR_APP_ID&display=popup&href=${encodeURIComponent(
             currentUrl
-          )}`,
+          )}&quote=Check this out!`,
           bg: "bg-blue-600 hover:bg-blue-700",
         },
-        {
-          icon: <FaTwitter className="text-white w-5 h-5" />,
-          url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(
-            currentUrl
-          )}`,
-          bg: "bg-blue-400 hover:bg-blue-500",
-        },
+
         {
           icon: <FaLinkedin className="text-white w-5 h-5" />,
-          url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+          url: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+            currentUrl
+          )}&title=Check this out!`,
+          bg: "bg-blue-700 hover:bg-blue-800",
+        },
+        {
+          icon: <FaWhatsapp className="text-white w-5 h-5" />,
+          url: `https://api.whatsapp.com/send?text=${encodeURIComponent(
+            "Check this out! " + currentUrl
+          )}`,
+          bg: "bg-green-500 hover:bg-green-600",
+        },
+        {
+          icon: <FaFacebookMessenger className="text-white w-5 h-5" />,
+          url: `https://www.messenger.com/share?link=${encodeURIComponent(
             currentUrl
           )}`,
-          bg: "bg-blue-700 hover:bg-blue-800",
+          bg: "bg-blue-500 hover:bg-blue-600",
         },
       ].map(({ icon, url, bg }, index) => (
         <a
