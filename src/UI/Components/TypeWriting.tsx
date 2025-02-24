@@ -1,6 +1,8 @@
 "use client";
+
 import { useTypewriter } from "react-simple-typewriter";
 import { toxigenesis } from "./HeroSection";
+
 const TypeWriting = () => {
   const [words] = useTypewriter({
     words: [

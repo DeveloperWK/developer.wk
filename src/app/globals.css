@@ -1,9 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body {
-  background-color: #000319;
+* {
+  /* Base Styles */
+  body {
+    font-family: "Open Sans", Arial, sans-serif; /* Fallback fonts included */
+    font-size: 16px; /* Minimum recommended size for accessibility */
+    line-height: 1.5; /* Improves readability */
+    color: white; /* Dark gray for contrast */
+    background-color: #000319;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: "Roboto", Arial, sans-serif; /* Bold and modern headings */
+    font-weight: bold;
+    color: white;
+  }
+
+  p {
+    font-family: "Merriweather", serif; /* Elegant and readable paragraphs */
+    margin-bottom: 1.5em; /* Spacing between paragraphs */
+  }
+
+  a {
+    font-family: "Inter", Arial, sans-serif; /* Links with a clean look */
+    color: #007bff; /* Accessible blue color */
+    text-decoration: none; /* Remove underline for cleaner design */
+  }
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -356,4 +383,17 @@ html {
 
 .animate-fade-in {
   animation: fadeIn 0.5s ease-out forwards;
+}
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4b5563; /* Gray-600 */
+  border-radius: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #1f2937; /* Gray-800 */
 }

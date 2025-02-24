@@ -1,3 +1,4 @@
+import BackToTop from "@/UI/Components/BackToTop";
 import MdRender from "@/UI/Components/MdRender";
 import SocialShare from "@/UI/Components/SocialShare";
 import SummarizeBlogPosts from "@/UI/Components/SummarizeBlogPosts";
@@ -21,19 +22,41 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/blogs/get-blog-post?slug=${slug}`
   );
   const data = await res.json();
+
+  const title = data?.blog?.title || "Blog Post";
+  const description =
+    data?.blog?.content || "Read this blog post to learn more.";
+  const imageUrl = data?.blog?.imageUrl || "/default-image.jpg";
+
   return {
-    title: data?.blog?.title || "Blog Post",
-    description: data?.blog?.content || "Read this blog post to learn more.",
+    metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL as string),
+    title,
+    description,
     openGraph: {
-      images: [data?.blog?.imageUrl || "/default-image.jpg"],
+      title,
+      description,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+        },
+      ],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [imageUrl],
     },
   };
 }
-
 export default async function BlogPost({
   params,
 }: {
@@ -52,12 +75,10 @@ export default async function BlogPost({
   return (
     <section className="min-h-screen flex flex-col justify-center px-4 py-16 bg-gray-900 text-white overflow-hidden">
       <div className="max-w-4xl mx-auto w-full space-y-6 overflow-x-hidden">
-        {/* Title */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight tracking-wide text-white break-words pt-7">
           {post?.blog?.title}
         </h1>
 
-        {/* Author Section */}
         <div className="flex items-center space-x-4">
           <Image
             src={post?.blog?.authorImage || "/logo.jpg"}
@@ -82,7 +103,6 @@ export default async function BlogPost({
           </div>
         </div>
 
-        {/* Featured Image */}
         {post?.blog?.imageUrl && (
           <div className="w-full flex justify-center overflow-hidden">
             <Image
@@ -95,21 +115,19 @@ export default async function BlogPost({
           </div>
         )}
 
-        {/* Blog Content */}
         <div className="prose prose-invert max-w-none text-gray-300 leading-relaxed sm:px-4 break-words overflow-x-hidden">
           <MdRender>{post?.blog?.content || "No content available."}</MdRender>
         </div>
 
-        {/* Social Share Section */}
         <section className="mt-8">
           <SocialShare />
         </section>
 
-        {/* Summarize Blog Posts */}
         <section className="mt-12">
           <SummarizeBlogPosts blogPostsContent={post?.blog?.content || ""} />
         </section>
       </div>
+      <BackToTop />
     </section>
   );
 }

@@ -8,7 +8,6 @@ import Software_dev_Animation from "./Software_dev_Animation";
 import { Spotlight } from "./Spotlight";
 import { TextGenerateEffect } from "./Text-generate-effect";
 import TypeWriting from "./TypeWriting";
-// Initialize the font
 const sprintura = localFont({
   src: "../../../public/fonts/Sprintura-Demo.otf",
   display: "swap",

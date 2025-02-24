@@ -5,8 +5,8 @@ import { ThemeProvider } from "@/UI/Components/theme-provider";
 import SessionProviderWrapper from "@/UI/lib/SessionProviderWrapper";
 import DisableContextMenu from "@/Utils/DisableContextMenu";
 import type { Metadata, Viewport } from "next";
-
 import "./globals.css";
+
 export const metadata: Metadata = {
   manifest: "/manifest.json",
   title: "Developer.WK",
@@ -25,6 +25,20 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="manifest" href="/manifest.json" />
+        <link
+          rel="preload"
+          href="/fonts/Sprintura-Demo.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/toxigenesis-bd.otf"
+          as="font"
+          type="font/otf"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
         <SessionProviderWrapper>

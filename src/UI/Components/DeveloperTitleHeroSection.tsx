@@ -1,6 +1,8 @@
 "use client";
+
 import { motion } from "framer-motion";
 import { toxigenesis } from "./HeroSection";
+
 const textVariants = {
   hidden: { opacity: 0 },
   visible: (i: number) => ({

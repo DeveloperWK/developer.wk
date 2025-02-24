@@ -13,10 +13,9 @@ const Software_dev_Animation = () => {
   function wait(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
-  function fetchData() {
-    return wait(2000).then(() => {
-      return <Lottie animationData={software_dev} loop={true} />;
-    });
+  async function fetchData() {
+    await wait(2000);
+    return <Lottie animationData={software_dev} loop={true} />;
   }
   const resource = fetchData();
 

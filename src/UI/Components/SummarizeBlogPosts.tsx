@@ -65,6 +65,7 @@
 "use client";
 import { Button } from "@/UI/Components/button";
 import { useState } from "react";
+import SpeechReader from "./SpeechReader";
 
 const SummarizeBlogPosts = ({
   blogPostsContent,
@@ -137,14 +138,8 @@ const SummarizeBlogPosts = ({
       >
         {isLoading ? "Summarizing..." : "Summarize Blog Posts"}
       </Button>
-
-      {/* Display Summary */}
       {data?.summary && (
-        <section className="text-white p-4 md:p-6 lg:p-8 border border-gray-500 mt-4 rounded-lg bg-gray-800 shadow-lg transition-transform duration-300 hover:scale-105 scrollbar-hide">
-          <p className="text-lg leading-relaxed text-gray-300">
-            {data?.summary}
-          </p>
-        </section>
+        <SpeechReader text={data?.summary || "No summary available"} />
       )}
 
       {/* Display Error Message */}
