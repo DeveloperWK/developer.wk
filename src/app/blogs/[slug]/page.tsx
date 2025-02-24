@@ -79,16 +79,16 @@ export default async function BlogPost({
           {post?.blog?.title}
         </h1>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 ">
           <Image
-            src={post?.blog?.authorImage || "/logo.jpg"}
+            src={"/logo.jpg"}
             alt="Author"
             width={50}
             height={50}
-            className="rounded-full border border-gray-700"
+            className="rounded-full border border-gray-700 mb-3"
           />
           <div>
-            <p className="text-gray-300 font-medium">
+            <p className="text-gray-300 font-medium" style={{ margin: 0 }}>
               {post?.blog?.author || "Owner"}
             </p>
             <p className="text-sm text-gray-400">

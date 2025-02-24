@@ -41,12 +41,6 @@ const HeroSection = () => {
           <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
           <section className="flex items-center justify-between gap-5 md:flex-row flex-col md:justify-center md:items-center">
             <section className="h-full text-center md:text-left">
-              {/* <p
-                className={`${raleway.className} capitalize text-[1rem] italic mt-10`}
-              >
-                Building scalable web applications with a focus on user
-                experience...
-              </p> */}
               <p
                 className={`${raleway.className} capitalize text-[1rem] italic mt-10 min-h-[2rem]`}
               >
@@ -54,11 +48,6 @@ const HeroSection = () => {
                 experience...
               </p>
 
-              {/* <TextGenerateEffect
-                words="MD.WASIFUL KABIR"
-                //pt-16
-                className={` text-center  text-[35px] md:text-5xl lg:text-6xl ${sprintura.className}  md:text-left   `}
-              /> */}
               <section className="h-full min-h-[10rem]">
                 <TextGenerateEffect
                   words="MD.WASIFUL KABIR"
@@ -71,18 +60,11 @@ const HeroSection = () => {
               >
                 One Step Ahead of Everyone...
               </h2>
-              {/* <section className="mt-5 ">
-                <TypeWriting />
-              </section> */}
+
               <section className="mt-5 min-h-[3rem]">
                 <TypeWriting />
               </section>
 
-              {/* <MagicButton
-                title="View My Work"
-                className="mt-5 "
-                icon={<MdOutlineWorkspacePremium className="ml-1" />}
-              /> */}
               <MagicButton
                 title="View My Work"
                 className="mt-5 min-h-[2.5rem]"
@@ -93,9 +75,7 @@ const HeroSection = () => {
                 <SocialLink />
               </section>
             </section>
-            {/* <section className="h-full">
-              <Software_dev_Animation />
-            </section> */}
+
             <section className="h-full w-auto aspect-[16/9]">
               <Software_dev_Animation />
             </section>
