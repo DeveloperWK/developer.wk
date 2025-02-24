@@ -24,7 +24,7 @@ const raleway = Raleway({
 });
 const HeroSection = () => {
   return (
-    <section className="pb-20 pt-12 h-full">
+    <section className="py-12 h-full">
       <div>
         <Spotlight
           className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen"
@@ -41,42 +41,68 @@ const HeroSection = () => {
           <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
           <section className="flex items-center justify-between gap-5 md:flex-row flex-col md:justify-center md:items-center">
             <section className="h-full text-center md:text-left">
-              <p
+              {/* <p
                 className={`${raleway.className} capitalize text-[1rem] italic mt-10`}
               >
                 Building scalable web applications with a focus on user
                 experience...
+              </p> */}
+              <p
+                className={`${raleway.className} capitalize text-[1rem] italic mt-10 min-h-[2rem]`}
+              >
+                Building scalable web applications with a focus on user
+                experience...
               </p>
-              <TextGenerateEffect
+
+              {/* <TextGenerateEffect
                 words="MD.WASIFUL KABIR"
                 //pt-16
                 className={` text-center  text-[35px] md:text-5xl lg:text-6xl ${sprintura.className}  md:text-left   `}
-              />
+              /> */}
+              <section className="h-full min-h-[10rem]">
+                <TextGenerateEffect
+                  words="MD.WASIFUL KABIR"
+                  className={`text-center text-[35px] md:text-5xl lg:text-6xl ${sprintura.className} md:text-left`}
+                />
+              </section>
+
               <h2
                 className={`text-center uppercase tracking-widest text-xs text-blue-100 md:text-xl md:text-left ${toxigenesis.className} `}
               >
                 One Step Ahead of Everyone...
               </h2>
-              <section className="mt-5 ">
+              {/* <section className="mt-5 ">
+                <TypeWriting />
+              </section> */}
+              <section className="mt-5 min-h-[3rem]">
                 <TypeWriting />
               </section>
 
-              <MagicButton
+              {/* <MagicButton
                 title="View My Work"
                 className="mt-5 "
                 icon={<MdOutlineWorkspacePremium className="ml-1" />}
+              /> */}
+              <MagicButton
+                title="View My Work"
+                className="mt-5 min-h-[2.5rem]"
+                icon={<MdOutlineWorkspacePremium className="ml-1" />}
               />
+
               <section>
                 <SocialLink />
               </section>
             </section>
-            <section className="h-full">
+            {/* <section className="h-full">
+              <Software_dev_Animation />
+            </section> */}
+            <section className="h-full w-auto aspect-[16/9]">
               <Software_dev_Animation />
             </section>
           </section>
         </div>
       </section>
-      <section className="w-100 text-center md:p-5">
+      <section className="w-100 text-center md:p-5 pt-10">
         <DeveloperTitleHeroSection text="  One Step Ahead: Redefining Software Engineering Excellence." />
       </section>
     </section>
